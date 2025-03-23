@@ -1,4 +1,5 @@
 import cv2
+from ..preprocess.color import denoising, grayscale, blur
 
 def load_frames(vid):
     """Loads the frames from a video to an array for processing
@@ -15,11 +16,19 @@ def load_frames(vid):
 def web_cam(frame_trans):
     """decorator: around image processing functions
     """
-    cam = cv2.VideoCapture(0)
-    sucess, frames = cam.read()
-    while sucess:
+    def wrapper(*args, **kwargs):
+        cam = cv2.VideoCapture(0)
         sucess, frames = cam.read()
-        frame_trans(frames)
-        if cv2.waitKey(1) == 'q':
-            cv2.destroyAllWindows()
-            break
+        while sucess:
+            sucess, frames = cam.read()
+            frames = cv2.resize(frames, (100,100))
+            print(type(frames))
+            frames = grayscale(frames)
+            frames = blur(frames)
+            frames = denoising(frames)
+            
+            frame_trans(frames,*args, **kwargs)
+            if cv2.waitKey(1) == 'q':
+                cv2.destroyAllWindows()
+                break
+    return wrapper
