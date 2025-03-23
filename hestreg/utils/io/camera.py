@@ -1,5 +1,6 @@
 import cv2
-from torchvision.transforms import ToTensor, functional
+from torchvision.transforms import functional
+import torchvision.transforms as tt
 
 def load_frames(vid):
     """Loads the frames from a video to an array for processing
@@ -28,10 +29,9 @@ def web_cam(frame_trans):
         sucess, frames = cam.read()
         while sucess:
             sucess, frames = cam.read()
-            frames = cv2.cvtColor(frames, cv2.COLOR_BGR2RGB)
-            frames = cv2.cvtColor(frames, cv2.COLOR_RGB2GRAY)
-            frames = cv2.resize(frames, (100,100))
             frames = functional.to_tensor(frames)
+            frames = functional.rgb_to_grayscale(frames, num_output_channels=3)
+            frames = functional.resize(frames, size=[128, 128])
             frame_trans(frames,*args, **kwargs)
             if cv2.waitKey(1) == 'q':
                 cv2.destroyAllWindows()

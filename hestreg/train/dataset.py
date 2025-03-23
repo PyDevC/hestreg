@@ -1,6 +1,7 @@
 import os
 import numpy as np
 from torch.utils.data import Dataset
+from torchvision.transforms import functional
 import cv2
 
 
@@ -30,21 +31,23 @@ class handGesture(Dataset):
                    '06_index', '07_ok', '08_palm_moved', '09_c', '10_down']
 
         for subject_id in range(10):
-            subject_folder = f'{subject_id:02}'
+            subject_folder = f'0{subject_id}'
             for gesture_folder in gesture_folders:
                 gesture_path = os.path.join(self.input_folder, subject_folder, gesture_folder)
                 if not os.path.exists(gesture_path):
                     continue
                 for img_file in os.listdir(gesture_path):
                     img_path = os.path.join(gesture_path, img_file)
-                    img = cv2.imread(img_path, cv2.IMREAD_GRAYSCALE)
-                    img = cv2.resize(img, self.resize)
+                    img = cv2.imread(img_path)
+                    img = functional.to_tensor(img)
+                    img = functional.rgb_to_grayscale(img, num_output_channels=3)
+                    img = functional.resize(img, size=[128,128])
                     data.append(img)
                     labels.append(gesture_folder)
     
-            # Convert lists to numpy arrays
-            data = np.array(data)
-            labels = np.array(labels)
+        data = np.array(data)
+        labels = np.array(labels)
+        print(len(data))
 
-            return data, labels
+        return data, labels
 
