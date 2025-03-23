@@ -1,5 +1,5 @@
 import cv2
-from ..preprocess.color import denoising, grayscale, blur
+from torchvision.transforms import ToTensor, functional
 
 def load_frames(vid):
     """Loads the frames from a video to an array for processing
@@ -13,7 +13,12 @@ def load_frames(vid):
     return images
 
 def load_image(path):
-    return cv2.imread(path)
+    img = cv2.imread(path)
+    img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+    img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
+    img = cv2.resize(img, (100,100))
+    img = functional.to_tensor(img)
+    return img
 
 def web_cam(frame_trans):
     """decorator: around image processing functions
@@ -23,7 +28,10 @@ def web_cam(frame_trans):
         sucess, frames = cam.read()
         while sucess:
             sucess, frames = cam.read()
-            frames = cv2.resize(frames, (100, 100))
+            frames = cv2.cvtColor(frames, cv2.COLOR_BGR2RGB)
+            frames = cv2.cvtColor(frames, cv2.COLOR_RGB2GRAY)
+            frames = cv2.resize(frames, (100,100))
+            frames = functional.to_tensor(frames)
             frame_trans(frames,*args, **kwargs)
             if cv2.waitKey(1) == 'q':
                 cv2.destroyAllWindows()

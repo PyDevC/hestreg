@@ -1,5 +1,4 @@
 from hestreg.train.train import train_model
-from hestreg.utils.io.camera import web_cam
 from hestreg.train.dataset import handGesture
 from hestreg.train.models.cnn import CNNModel
 from hestreg.train.loss import cross_entropy_loss

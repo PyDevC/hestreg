@@ -19,6 +19,8 @@ def train_model(model, dataset, criterian, optimizer, device):
         running_loss = 0.0
         for input, label in train_dataloader:
             input = input.to(device)
+            print(input.shape)
+
             label = label.to(device)
             optimizer.zero_grad()
             output = model(input)

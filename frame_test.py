@@ -1,4 +1,5 @@
 import torch
+import cv2
 import hestreg.utils.io.camera as camera
 import os
 
@@ -14,10 +15,11 @@ def digit_to_classname(digit):
                    '06_index', '07_ok', '08_palm_moved', '09_c', '10_down']
 
     for idx, itm in enumerate(gesture_folders):
-        if idx == digit:
+        if idx == digit.argmax():
             return itm
 
 image = camera.load_image(input_folder)
-model = torch.load(model_path, weights_only=False)
-model.eval()
-print(model(input))
+image = torch.tensor(image, dtype=torch.float32).unsqueeze(0)
+image.to("cpu")
+model.to("cpu")
+print(digit_to_classname(model(image)))
