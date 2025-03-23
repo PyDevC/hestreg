@@ -12,6 +12,8 @@ def load_frames(vid):
         images.append(frames)
     return images
 
+def load_image(path):
+    return cv2.imread(path)
 
 def web_cam(frame_trans):
     """decorator: around image processing functions
@@ -21,12 +23,7 @@ def web_cam(frame_trans):
         sucess, frames = cam.read()
         while sucess:
             sucess, frames = cam.read()
-            frames = cv2.resize(frames, (100,100))
-            print(type(frames))
-            frames = grayscale(frames)
-            frames = blur(frames)
-            frames = denoising(frames)
-            
+            frames = cv2.resize(frames, (100, 100))
             frame_trans(frames,*args, **kwargs)
             if cv2.waitKey(1) == 'q':
                 cv2.destroyAllWindows()
