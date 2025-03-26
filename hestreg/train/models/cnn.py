@@ -1,19 +1,22 @@
-import torch
+from . import _base
 import torch.nn as nn
 
-class CNNModel(nn.Module):
-    def __init__(self, classes):
-        super().__init__()
-        self.conv1 = nn.Conv2d(1, 32, kernel_size=3, stride=1, padding=1)
-        self.conv2 = nn.Conv2d(32, 64, kernel_size=3, stride=1, padding=1)
-        self.pool = nn.MaxPool2d(kernel_size=2, stride=2, padding=0)
-        self.fc1 = nn.Linear(64 * 25 * 25, 128)
-        self.fc2 = nn.Linear(128, len(classes))
+# add a custom type later
+# type k_size = Union[T, tuple[T, T]]
 
-    def forward(self, x):
-        x = self.pool(nn.functional.relu(self.conv1(x)))
-        x = self.pool(nn.functional.relu(self.conv2(x)))
-        x = torch.flatten(x, 1)
-        x = nn.functional.relu(self.fc1(x))
-        x = self.fc2(x)
-        return x
+class CNNModel(_base.base_cnn):
+    r"""A basic CNN model
+    Note: controlling first layer of CNN is important to handle data of 
+    different formats.
+    """
+    def __init__(self, 
+                 first_layer_channel: int,
+                 kernel_size: tuple[int]
+    )-> None:
+        self.conv1 = nn.Conv2d(in_channels=first_layer_channel,
+                               out_channels=64,
+                               kernel_size=kernel_size)
+        self.conv2 = nn.Conv2d(64,128, kernel_size=(4,4)) # I want to be able to add more layers to the model by inhereiting this
+    def forward(self):
+        pass
+        # I want to able to add many activation functions and other functionality
