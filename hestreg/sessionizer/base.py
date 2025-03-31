@@ -1,5 +1,7 @@
 from accelerator import get_device, available_devices
 
+# apply type hints to the classes and methods
+
 class BaseSession:
     """Base class for both window and window less types of sessions
     """
@@ -34,3 +36,9 @@ class BaseSession:
         Returns: preprocessed frame
         """
         pass
+
+    def name(self):
+        """return the name of the session
+        i.e., name of the session should be same as name of the session
+        """
+        return self.__class__.__name__
