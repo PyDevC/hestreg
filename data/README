@@ -1,7 +1,0 @@
-# Where to get Data?
-
-The data for training image recognition model can be found on kaggle
-link: https://www.kaggle.com/datasets/gti-upm/leapgestrecog
-
-You can also use your own data for training a custom model.
-Change train.py according to the input folder. 
