@@ -1,9 +1,0 @@
-# Interface for hestreg
-
-Basic GUI for hestreg using PyQt6.
-
-Key components:
-- camera on and off facility
-- display window
-- toggle result show and hide
-- display command features as examples
