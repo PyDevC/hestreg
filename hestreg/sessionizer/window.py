@@ -1,6 +1,6 @@
 from .base import BaseSession
 from utils import opterations as opt
-from utils.io.camera import webcam
+from utils.io import camera, window
 
 class WindowSession(BaseSession):
     def __init__(self, model_name, window_opt:list[str]):
@@ -8,7 +8,7 @@ class WindowSession(BaseSession):
 
         # apply all the window options in window_opt
 
-    @webcam
+    @camera.webcam
     def screening(
         self,
         frame,
@@ -27,4 +27,4 @@ class WindowSession(BaseSession):
         return frame
 
     def start_session(self):
-        frame = self.screening()
+        self.screening()
