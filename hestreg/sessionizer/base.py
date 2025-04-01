@@ -3,7 +3,7 @@ from accelerator import get_device, available_devices
 # apply type hints to the classes and methods
 
 class BaseSession:
-    """Base class for both window and window less types of sessions
+    """Base class for both window and window-less types of sessions
     """
     def __init__(self, model_name:str, session_type:str, *args, **kwargs):
         self.model = self.load_model(model_name)
