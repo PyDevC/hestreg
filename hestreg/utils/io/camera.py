@@ -29,10 +29,7 @@ def web_cam(frame_trans):
         sucess, frames = cam.read()
         while sucess:
             sucess, frames = cam.read()
-            frames = functional.to_tensor(frames)
-            frames = functional.rgb_to_grayscale(frames, num_output_channels=3)
-            frames = functional.resize(frames, size=[128, 128])
-            frame_trans(frames,*args, **kwargs)
+            frame_trans(frames, *args, **kwargs)
             if cv2.waitKey(1) == 'q':
                 cv2.destroyAllWindows()
                 break

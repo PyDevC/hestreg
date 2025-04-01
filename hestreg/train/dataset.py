@@ -47,7 +47,6 @@ class handGesture(Dataset):
     
         data = np.array(data)
         labels = np.array(labels)
-        print(len(data))
 
         return data, labels
 
