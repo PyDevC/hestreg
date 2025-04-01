@@ -124,7 +124,7 @@ class FullModel(nn.Module):
 
 class ModelLoader:
     def __init__(self):
-        self.root = '../models/demo.ckp'
+        self.root = 'hestreg/models/demo.ckp'
 
     def extract(self, model_name):
         load_dict = torch.load(self.root)

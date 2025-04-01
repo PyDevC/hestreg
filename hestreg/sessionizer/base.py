@@ -1,6 +1,6 @@
-from utils.io import camera, window
-from detection.hand_detector import HandDetector
-from utils.model import ModelLoader
+from hestreg.utils.io import camera, window
+from hestreg.detection.hand_detector import HandDetector
+from hestreg.utils.model import ModelLoader
 
 # apply type hints to the classes and methods
 
