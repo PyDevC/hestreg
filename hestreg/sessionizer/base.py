@@ -1,4 +1,4 @@
-from accelerator import get_device, available_devices
+from utils.io import camera, window
 
 # apply type hints to the classes and methods
 
@@ -19,6 +19,7 @@ class BaseSession:
     def load_model(self, model_name:str):
         pass # no model architecture is decided so we will decide there
 
+    @camera.webcam
     def screening(
         self,
         frame,
