@@ -1,13 +1,16 @@
 import cv2
 
-def webcam(*args, **kwargs):
+def webcam(screening,*args, **kwargs):
     """decorator for running functions in webcam
     """
+    #check the type of function input
+
     cam = cv2.VideoCapture(0)
     _, frame = cam.read()
     def wrapper(frame,*args, **kwargs):
         while frame:
             _, frame = cam.read()
+            frame = screening(frame)
             args[0](frame)
     return wrapper(frame, *args, **kwargs)
 
