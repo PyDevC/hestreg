@@ -1,6 +1,6 @@
 from utils.io import camera, window
 from detection.hand_detector import HandDetector
-#from model import extract
+from utils.model import ModelLoader
 
 # apply type hints to the classes and methods
 
@@ -23,7 +23,9 @@ class BaseSession:
 
 
     def load_model(self, model_name:str):
-        pass # no model architecture is decided so we will decide there
+        loader = ModelLoader()
+        model = loader.extract(model_name)
+        return model
 
     @camera.webcam
     def screening(
