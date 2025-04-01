@@ -5,7 +5,7 @@ from accelerator import get_device, available_devices
 class BaseSession:
     """Base class for both window and window-less types of sessions
     """
-    def __init__(self, model_name:str, session_type:str, *args, **kwargs):
+    def __init__(self, model_name:str, *args, **kwargs):
         self.model = self.load_model(model_name)
 
         # check if the args contains any accelerator name
@@ -22,7 +22,6 @@ class BaseSession:
     def screening(
         self,
         frame,
-        resize,
         *args,
         **kwargs
     ):
@@ -35,7 +34,7 @@ class BaseSession:
 
         Returns: preprocessed frame
         """
-        pass
+        return frame
 
     def name(self):
         """return the name of the session

@@ -1,17 +1,17 @@
 from .base import BaseSession
 from utils import opterations as opt
-from utils import io
+from utils.io.camera import webcam
 
 class WindowSession(BaseSession):
-    def __init__(self, model_name, session_type, window_opt:list[str]):
-        super().__init__(model_name, session_type)
+    def __init__(self, model_name, window_opt:list[str]):
+        super().__init__(model_name)
 
         # apply all the window options in window_opt
 
+    @webcam
     def screening(
         self,
         frame,
-        resize,
         *args,
         **kwargs
     ):
@@ -24,9 +24,7 @@ class WindowSession(BaseSession):
 
         Returns: preprocessed frame
         """
-        frame = opt.resize(frame, resize)
-        frame = opt.grayscale(frame)
-
-        # apply all the opterations mentioned in args and kwargs
-
         return frame
+
+    def start_session(self):
+        frame = self.screening()
