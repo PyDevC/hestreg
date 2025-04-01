@@ -1,4 +1,6 @@
 from utils.io import camera, window
+from detection.hand_detector import HandDetector
+#from model import extract
 
 # apply type hints to the classes and methods
 
@@ -9,12 +11,16 @@ class BaseSession:
         self.model = self.load_model(model_name)
 
         # check if the args contains any accelerator name
+        """
         arg_devices = [device for device in available_devices() if device in args]
 
         if arg_devices:
             self.accelerator = arg_devices[0]
         else:
             self.accelerator = get_device()
+        """
+        self.detector = HandDetector(self.model)
+
 
     def load_model(self, model_name:str):
         pass # no model architecture is decided so we will decide there

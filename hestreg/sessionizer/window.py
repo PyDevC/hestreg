@@ -26,5 +26,12 @@ class WindowSession(BaseSession):
         """
         return frame
 
-    def start_session(self):
-        self.screening()
+    def start_session(self, *args):
+        self.frame = self.screening(*args)
+
+    def stop_session(self):
+        exit(0)
+
+    def export_frames(self):
+        return self.frame
+

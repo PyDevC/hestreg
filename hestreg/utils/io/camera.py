@@ -11,7 +11,7 @@ def webcam(screening,*args, **kwargs):
         while frame:
             _, frame = cam.read()
             frame = screening(frame)
-            args[0](frame)
+        return frame
     return wrapper(frame, *args, **kwargs)
 
 
