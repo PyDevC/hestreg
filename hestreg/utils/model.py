@@ -130,5 +130,6 @@ class ModelLoader:
         load_dict = torch.load(self.root)
         model = FullModel(batch_size=8)
         model.load_state_dict(load_dict)
+        model.to('cuda')
         model.eval()
         return model
