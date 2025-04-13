@@ -126,7 +126,7 @@ class ModelLoader:
     def __init__(self):
         self.root = 'hestreg/models/demo.ckp'
 
-    def extract(self, model_name):
+    def extract(self):
         load_dict = torch.load(self.root)
         model = FullModel(batch_size=8)
         model.load_state_dict(load_dict)

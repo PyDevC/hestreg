@@ -1,7 +1,9 @@
-import hestreg.sessionizer.base as base
-import hestreg.sessionizer.window as window
+from .base import BaseSession
+from .window import WindowSession
+from .window_less import Window_lessSession
 
 __all__ = [
-    "base",
-    "window",
+    "BaseSession",
+    "WindowSession",
+    "Window_lessSession"
 ]
