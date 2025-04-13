@@ -27,24 +27,6 @@ class BaseSession:
         model = loader.extract(model_name)
         return model
 
-    @camera.webcam
-    def screening(
-        self,
-        frame,
-        *args,
-        **kwargs
-    ):
-        """Apply preprocessing methods on image using this
-
-        Parameters:
-            frame: PIL image from video or webcam
-            resize: adjust the quality of video input (lower the faster but
-            worsen the quality of predcition)
-
-        Returns: preprocessed frame
-        """
-        return frame
-
     def name(self):
         """return the name of the session
         i.e., name of the session should be same as name of the session
