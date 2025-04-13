@@ -1,6 +1,7 @@
 import cv2
 from hestreg.sessionizer import BaseSession
 from hestreg.detection import BaseDetector
+import torch
 
 predictions = [
     "Swiping Left",
@@ -33,7 +34,8 @@ predictions = [
 ]
 
 camera = cv2.VideoCapture(0)
-camera.set(cv2.CAP_PROP_FPS, 64)
+camera.set(cv2.CAP_PROP_FPS, 128)
+print(camera.get(cv2.CAP_PROP_FPS))
 success, frame = camera.read()
 
 session = BaseSession('session')
@@ -44,11 +46,11 @@ count = 0
 while success:
     success, frame = camera.read()
 
-    out = detector.detect(frame, count)
+    out = detector.detect(frame, predictions, count)
     if isinstance(out, int):
         count = out
     else:
-        print(predictions[detector.pred])
+        print(out)
 
 # stop session
 camera.release()
