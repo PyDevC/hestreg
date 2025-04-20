@@ -1,6 +1,7 @@
 import cv2
 from hestreg.sessionizer import BaseSession
 from hestreg.detection import BaseDetector
+from hestreg import functional
 import torch
 
 predictions = [
@@ -37,6 +38,8 @@ camera = cv2.VideoCapture(0)
 camera.set(cv2.CAP_PROP_FPS, 128)
 print(camera.get(cv2.CAP_PROP_FPS))
 success, frame = camera.read()
+controller = functional.mouseController()
+move = (100,200)
 
 session = BaseSession('session')
 detector = BaseDetector(session.model)
@@ -50,6 +53,7 @@ while success:
     if isinstance(out, int):
         count = out
     else:
+        controller.get_function(move, action=out)
         print(out)
 
 # stop session

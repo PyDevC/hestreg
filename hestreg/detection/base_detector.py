@@ -56,4 +56,3 @@ class BaseDetector:
                 return ges[indices]
 
         return count + 1
-
